@@ -1,34 +1,36 @@
 package main
 
 import (
-    "fmt"
-    "strings"
-    "strconv"
-    "adventofcode/2020/modules/readinput"
-    "adventofcode/2020/modules/console"
+	"fmt"
+	"strconv"
+	"strings"
+
+	"github.com/robryanx/adventofcode2020/modules/console"
+	"github.com/robryanx/adventofcode2020/modules/readinput"
 )
 
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
-
 func main() {
-    instruction_list := []*console.Instruction{}
+	instruction_list := []*console.Instruction{}
 
-    for _, instructions := range readinput.ReadStrings("inputs/8/input.txt", "\n") {
-        instruction_parts := strings.Split(instructions, " ")
+	lines, err := readinput.ReadStrings("inputs/8/input.txt", "\n")
+	if err != nil {
+		panic(err)
+	}
 
-        value, err := strconv.Atoi(instruction_parts[1])
-        check(err)
+	for _, instructions := range lines {
+		instruction_parts := strings.Split(instructions, " ")
 
-        current_instruction := &console.Instruction{Instruction_type: instruction_parts[0], Instruction_value: value}
+		value, err := strconv.Atoi(instruction_parts[1])
+		if err != nil {
+			panic(err)
+		}
 
-        instruction_list = append(instruction_list, current_instruction)
-    }
+		current_instruction := &console.Instruction{Instruction_type: instruction_parts[0], Instruction_value: value}
 
-    _, accumulator := console.Run(instruction_list)
+		instruction_list = append(instruction_list, current_instruction)
+	}
 
-    fmt.Println(accumulator)
+	_, accumulator := console.Run(instruction_list)
+
+	fmt.Println(accumulator)
 }

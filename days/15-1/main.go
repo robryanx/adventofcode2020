@@ -1,38 +1,43 @@
 package main
 
 import (
-    "fmt"
-    "adventofcode/2020/modules/readinput"
+	"fmt"
+
+	"github.com/robryanx/adventofcode2020/modules/readinput"
 )
 
 func main() {
-    list := readinput.ReadInts("inputs/15/input.txt", ",")
-    list = append(list, 0)
+	list, err := readinput.ReadInts("inputs/15/input.txt", ",")
+	if err != nil {
+		panic(err)
+	}
 
-    count := len(list)
+	list = append(list, 0)
 
-    for ;; {
-        current_number := list[len(list)-1]
-        last_seen := len(list)
-        for i:=len(list)-2; i>=0; i-- {
-            if list[i] == current_number {
-                last_seen = i
-                break;
-            }
-        }
+	count := len(list)
 
-        if last_seen == len(list) {
-            list = append(list, 0)
-        } else {
-            list = append(list, len(list)-last_seen-1)
-        }
+	for {
+		current_number := list[len(list)-1]
+		last_seen := len(list)
+		for i := len(list) - 2; i >= 0; i-- {
+			if list[i] == current_number {
+				last_seen = i
+				break
+			}
+		}
 
-        count++;
+		if last_seen == len(list) {
+			list = append(list, 0)
+		} else {
+			list = append(list, len(list)-last_seen-1)
+		}
 
-        if count == 2020 {
-            break
-        }
-    }
+		count++
 
-    fmt.Println(list[len(list)-1])
+		if count == 2020 {
+			break
+		}
+	}
+
+	fmt.Println(list[len(list)-1])
 }
