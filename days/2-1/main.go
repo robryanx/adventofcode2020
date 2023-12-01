@@ -1,42 +1,47 @@
 package main
 
 import (
-    "fmt"
-    "regexp"
-    "strconv"
-    "adventofcode/2020/modules/readinput"
+	"fmt"
+	"regexp"
+	"strconv"
+
+	"github.com/robryanx/adventofcode2020/modules/readinput"
 )
 
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
+var r = regexp.MustCompile(`([0-9]+)\-([0-9]+)\s([a-z]+)\:\s(.*)`)
 
 func main() {
-    r, _ := regexp.Compile("([0-9]+)\\-([0-9]+)\\s([a-z]+)\\:\\s(.*)")
+	valid_count := 0
 
-    valid_count := 0
-    for _, line := range readinput.ReadStrings("inputs/2/input.txt", "\n") {
-        matches := r.FindStringSubmatch(line);
+	lines, err := readinput.ReadStrings("inputs/2/input.txt", "\n")
+	if err != nil {
+		panic(err)
+	}
 
-        min, err := strconv.Atoi(matches[1])
-        check(err)
+	for _, line := range lines {
+		matches := r.FindStringSubmatch(line)
 
-        max, err := strconv.Atoi(matches[2])
-        check(err)
+		min, err := strconv.Atoi(matches[1])
+		if err != nil {
+			panic(err)
+		}
 
-        letter_count := 0
-        for _, letter := range matches[4] {
-            if string(letter) == matches[3] {
-                letter_count++
-            }
-        }
+		max, err := strconv.Atoi(matches[2])
+		if err != nil {
+			panic(err)
+		}
 
-        if letter_count >= min && letter_count <= max {
-            valid_count++
-        }
-    }
+		letter_count := 0
+		for _, letter := range matches[4] {
+			if string(letter) == matches[3] {
+				letter_count++
+			}
+		}
 
-    fmt.Println(valid_count)
+		if letter_count >= min && letter_count <= max {
+			valid_count++
+		}
+	}
+
+	fmt.Println(valid_count)
 }

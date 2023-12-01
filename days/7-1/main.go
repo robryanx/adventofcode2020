@@ -1,46 +1,53 @@
 package main
 
 import (
-    "fmt"
-    "strings"
-    "regexp"
-    "adventofcode/2020/modules/readinput"
+	"fmt"
+	"regexp"
+	"strings"
+
+	"github.com/robryanx/adventofcode2020/modules/readinput"
 )
 
 func check(e error) {
-    if e != nil {
-        panic(e)
-    }
+	if e != nil {
+		panic(e)
+	}
 }
 
 func main() {
-    bag_contains := make(map[string][]string)
-    for _, rules := range readinput.ReadStrings("inputs/7/input.txt", "\n") {
-        rule_parts := strings.Split(rules, " bags contain ")
+	bag_contains := make(map[string][]string)
 
-        r, _ := regexp.Compile("([0-9]+)\\s([\\sa-z]+)\\sbag")
+	lines, err := readinput.ReadStrings("inputs/7/input.txt", "\n")
+	if err != nil {
+		panic(err)
+	}
 
-        for _, contents := range strings.Split(rule_parts[1], ",") {
-            contents_parts := r.FindStringSubmatch(contents)
+	for _, rules := range lines {
+		rule_parts := strings.Split(rules, " bags contain ")
 
-            if len(contents_parts) > 0 {
-                bag_contains[contents_parts[2]] = append(bag_contains[contents_parts[2]], rule_parts[0])
-            }
-        }
-    }
+		r, _ := regexp.Compile("([0-9]+)\\s([\\sa-z]+)\\sbag")
 
-    collect_bags := map[string]bool{}
-    collect_bags = bag_recurse(bag_contains, collect_bags, "shiny gold")
+		for _, contents := range strings.Split(rule_parts[1], ",") {
+			contents_parts := r.FindStringSubmatch(contents)
 
-    fmt.Println(len(collect_bags))
+			if len(contents_parts) > 0 {
+				bag_contains[contents_parts[2]] = append(bag_contains[contents_parts[2]], rule_parts[0])
+			}
+		}
+	}
+
+	collect_bags := map[string]bool{}
+	collect_bags = bag_recurse(bag_contains, collect_bags, "shiny gold")
+
+	fmt.Println(len(collect_bags))
 }
 
 func bag_recurse(bag_contains map[string][]string, collect_bags map[string]bool, current_bag string) map[string]bool {
-    for i, count := 0, len(bag_contains[current_bag]); i<count; i++ {
-        collect_bags[bag_contains[current_bag][i]] = true
+	for i, count := 0, len(bag_contains[current_bag]); i < count; i++ {
+		collect_bags[bag_contains[current_bag][i]] = true
 
-        collect_bags = bag_recurse(bag_contains, collect_bags, bag_contains[current_bag][i])
-    }
+		collect_bags = bag_recurse(bag_contains, collect_bags, bag_contains[current_bag][i])
+	}
 
-    return collect_bags
+	return collect_bags
 }

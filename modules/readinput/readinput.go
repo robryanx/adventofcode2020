@@ -1,57 +1,63 @@
 package readinput
 
 import (
-    //"fmt"
-    "io/ioutil"
-    "strconv"
-    "strings"
+	"os"
+	"strconv"
+	"strings"
 )
-
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
 
 type Iterator = func(s string)
 
-func ReadStrings(file string, delim string) []string {
-    vals := make([]string, 0)
+func ReadStrings(file string, delim string) ([]string, error) {
+	var vals []string
 
-    Read(file, delim, func(s string) {
-        vals = append(vals, s)
-    })
+	err := read(file, delim, func(s string) {
+		vals = append(vals, s)
+	})
+	if err != nil {
+		return nil, err
+	}
 
-    return vals
+	return vals, nil
 }
 
-func ReadInts(file string, delim string) []int {
-    vals := make([]int, 0)
+func ReadInts(file string, delim string) ([]int, error) {
+	var vals []int
 
-    Read(file, delim, func(s string) {
-        i, _ := strconv.Atoi(s)
-        vals = append(vals, i)
-    })
+	err := read(file, delim, func(s string) {
+		i, _ := strconv.Atoi(s)
+		vals = append(vals, i)
+	})
+	if err != nil {
+		return nil, err
+	}
 
-    return vals
+	return vals, nil
 }
 
-func ReadFloats(file string, delim string) []float64 {
-    vals := make([]float64, 0)
+func ReadFloats(file string, delim string) ([]float64, error) {
+	var vals []float64
 
-    Read(file, delim, func(s string) {
-        i, _ := strconv.ParseFloat(s, 64)
-        vals = append(vals, i)
-    })
+	err := read(file, delim, func(s string) {
+		i, _ := strconv.ParseFloat(s, 64)
+		vals = append(vals, i)
+	})
+	if err != nil {
+		return nil, err
+	}
 
-    return vals
+	return vals, nil
 }
 
-func Read(file string, delim string, iterator Iterator) {
-    bytes, err := ioutil.ReadFile(file)
-    check(err)
+func read(file string, delim string, iterator Iterator) error {
+	bytes, err := os.ReadFile(file)
+	if err != nil {
+		return err
+	}
 
-    for _, row := range strings.Split(string(bytes), delim) {
-        iterator(row)
-    }
+	for _, row := range strings.Split(string(bytes), delim) {
+		iterator(row)
+	}
+
+	return nil
 }

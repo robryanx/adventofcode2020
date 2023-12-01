@@ -1,45 +1,45 @@
 package main
 
 import (
-    "fmt"
-    "strings"
-    "adventofcode/2020/modules/readinput"
+	"fmt"
+	"strings"
+
+	"github.com/robryanx/adventofcode2020/modules/readinput"
 )
 
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
-
 func main() {
-    var display [][]bool
+	var display [][]bool
 
-    for _, line := range readinput.ReadStrings("inputs/3/input.txt", "\n") {
-        var row []bool
+	lines, err := readinput.ReadStrings("inputs/3/input.txt", "\n")
+	if err != nil {
+		panic(err)
+	}
 
-        for _, char := range strings.Split(line, "") {
-            row = append(row, (char == "#"))
-        }
+	for _, line := range lines {
+		var row []bool
 
-        display = append(display, row)
-    }
+		for _, char := range strings.Split(line, "") {
+			row = append(row, (char == "#"))
+		}
 
-    pos_x := 0
-    pos_y := 0
+		display = append(display, row)
+	}
 
-    width := len(display[0])
-    height := len(display)
+	pos_x := 0
+	pos_y := 0
 
-    trees := 0
-    for (pos_y + 1) < height {
-        pos_x += 3
-        pos_y++
+	width := len(display[0])
+	height := len(display)
 
-        if display[pos_y][pos_x % width] {
-            trees++
-        }
-    }
+	trees := 0
+	for (pos_y + 1) < height {
+		pos_x += 3
+		pos_y++
 
-    fmt.Println(trees)
+		if display[pos_y][pos_x%width] {
+			trees++
+		}
+	}
+
+	fmt.Println(trees)
 }

@@ -1,40 +1,45 @@
 package main
 
 import (
-    "fmt"
-    "regexp"
-    "strconv"
-    "adventofcode/2020/modules/readinput"
+	"fmt"
+	"regexp"
+	"strconv"
+
+	"github.com/robryanx/adventofcode2020/modules/readinput"
 )
 
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
+var r = regexp.MustCompile(`([0-9]+)\-([0-9]+)\s([a-z]+)\:\s(.*)`)
 
 func main() {
-    r, _ := regexp.Compile("([0-9]+)\\-([0-9]+)\\s([a-z]+)\\:\\s(.*)")
+	valid_count := 0
 
-    valid_count := 0
-    for _, line := range readinput.ReadStrings("inputs/2/input.txt", "\n") {
-        matches := r.FindStringSubmatch(line);
+	lines, err := readinput.ReadStrings("inputs/2/input.txt", "\n")
+	if err != nil {
+		panic(err)
+	}
 
-        pos_a, err := strconv.Atoi(matches[1])
-        pos_a--
-        check(err)
+	for _, line := range lines {
+		matches := r.FindStringSubmatch(line)
 
-        pos_b, err := strconv.Atoi(matches[2])
-        pos_b--
-        check(err)
+		pos_a, err := strconv.Atoi(matches[1])
+		pos_a--
+		if err != nil {
+			panic(err)
+		}
 
-        first_match := string(matches[4][pos_a]) == matches[3]
-        second_match := string(matches[4][pos_b]) == matches[3]
+		pos_b, err := strconv.Atoi(matches[2])
+		pos_b--
+		if err != nil {
+			panic(err)
+		}
 
-        if first_match != second_match {
-            valid_count++
-        }
-    }
+		first_match := string(matches[4][pos_a]) == matches[3]
+		second_match := string(matches[4][pos_b]) == matches[3]
 
-    fmt.Println(valid_count)
+		if first_match != second_match {
+			valid_count++
+		}
+	}
+
+	fmt.Println(valid_count)
 }

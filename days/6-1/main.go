@@ -1,32 +1,33 @@
 package main
 
 import (
-    "fmt"
-    "strings"
-    "adventofcode/2020/modules/readinput"
+	"fmt"
+	"strings"
+
+	"github.com/robryanx/adventofcode2020/modules/readinput"
 )
 
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
-
 func main() {
-    total := 0
-    for _, groups := range readinput.ReadStrings("inputs/6/input.txt", "\n\n") {
-        answers_collect := make(map[rune]bool)
+	total := 0
 
-        answers := strings.Split(groups, "\n")
+	lines, err := readinput.ReadStrings("inputs/6/input.txt", "\n")
+	if err != nil {
+		panic(err)
+	}
 
-        for _, answer := range answers {
-            for _, char := range answer {
-                answers_collect[char] = true
-            }
-        }
+	for _, groups := range lines {
+		answers_collect := make(map[rune]bool)
 
-        total += len(answers_collect)
-    }
+		answers := strings.Split(groups, "\n")
 
-    fmt.Println(total)
+		for _, answer := range answers {
+			for _, char := range answer {
+				answers_collect[char] = true
+			}
+		}
+
+		total += len(answers_collect)
+	}
+
+	fmt.Println(total)
 }
