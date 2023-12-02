@@ -13,7 +13,7 @@ var r = regexp.MustCompile(`([0-9]+)\-([0-9]+)\s([a-z]+)\:\s(.*)`)
 func main() {
 	valid_count := 0
 
-	lines, err := readinput.ReadStrings("inputs/2/input.txt", "\n")
+	lines, err := readinput.ReadStrings(2, false, "\n")
 	if err != nil {
 		panic(err)
 	}

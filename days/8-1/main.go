@@ -12,7 +12,7 @@ import (
 func main() {
 	instruction_list := []*console.Instruction{}
 
-	lines, err := readinput.ReadStrings("inputs/8/input.txt", "\n")
+	lines, err := readinput.ReadStrings(8, false, "\n")
 	if err != nil {
 		panic(err)
 	}

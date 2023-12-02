@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	input, err := readinput.ReadInts("inputs/9/input.txt", "\n")
+	input, err := readinput.ReadInts(9, false, "\n")
 	if err != nil {
 		panic(err)
 	}

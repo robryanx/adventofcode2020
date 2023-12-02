@@ -11,7 +11,7 @@ import (
 func main() {
 	biggest_seat := uint32(0)
 
-	lines, err := readinput.ReadStrings("inputs/5/input.txt", "\n")
+	lines, err := readinput.ReadStrings(5, false, "\n")
 	if err != nil {
 		panic(err)
 	}

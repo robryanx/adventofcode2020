@@ -12,7 +12,7 @@ import (
 func main() {
 	var seats []uint32
 
-	lines, err := readinput.ReadStrings("inputs/5/input.txt", "\n")
+	lines, err := readinput.ReadStrings(5, false, "\n")
 	if err != nil {
 		panic(err)
 	}

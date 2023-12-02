@@ -12,7 +12,7 @@ import (
 func main() {
 	bag_rules := make(map[string]map[string]int)
 
-	lines, err := readinput.ReadStrings("inputs/7/input.txt", "\n")
+	lines, err := readinput.ReadStrings(7, false, "\n")
 	if err != nil {
 		panic(err)
 	}

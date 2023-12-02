@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	parts, err := readinput.ReadStrings("inputs/13/input.txt", "\n")
+	parts, err := readinput.ReadStrings(13, false, "\n")
 	if err != nil {
 		panic(err)
 	}

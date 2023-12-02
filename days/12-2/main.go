@@ -21,7 +21,7 @@ func main() {
 	new_waypoint := [2]int{0, 0}
 	var waypoint_angle float64
 
-	lines, err := readinput.ReadStrings("inputs/12/input.txt", "\n")
+	lines, err := readinput.ReadStrings(12, false, "\n")
 	if err != nil {
 		panic(err)
 	}

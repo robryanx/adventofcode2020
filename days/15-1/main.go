@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	list, err := readinput.ReadInts("inputs/15/input.txt", ",")
+	list, err := readinput.ReadInts(15, false, ",")
 	if err != nil {
 		panic(err)
 	}

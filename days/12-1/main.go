@@ -23,7 +23,7 @@ func main() {
 	facing_pos := 0
 	position := [2]int{0, 0}
 
-	lines, err := readinput.ReadStrings("inputs/12/input.txt", "\n")
+	lines, err := readinput.ReadStrings(12, false, "\n")
 	if err != nil {
 		panic(err)
 	}

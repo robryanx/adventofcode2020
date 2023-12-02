@@ -17,7 +17,7 @@ func check(e error) {
 func main() {
 	bag_contains := make(map[string][]string)
 
-	lines, err := readinput.ReadStrings("inputs/7/input.txt", "\n")
+	lines, err := readinput.ReadStrings(7, false, "\n")
 	if err != nil {
 		panic(err)
 	}

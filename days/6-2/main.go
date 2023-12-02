@@ -16,7 +16,7 @@ func check(e error) {
 func main() {
 	total := 0
 
-	lines, err := readinput.ReadStrings("inputs/6/input.txt", "\n")
+	lines, err := readinput.ReadStrings(6, false, "\n\n")
 	if err != nil {
 		panic(err)
 	}

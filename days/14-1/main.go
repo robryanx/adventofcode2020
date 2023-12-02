@@ -18,7 +18,7 @@ func main() {
 	current_mask := ""
 	memory := map[int]int64{}
 
-	lines, err := readinput.ReadStrings("inputs/14/input.txt", "\n")
+	lines, err := readinput.ReadStrings(14, false, "\n")
 	if err != nil {
 		panic(err)
 	}

@@ -14,7 +14,7 @@ func main() {
 
 	valid_passports := 0
 
-	lines, err := readinput.ReadStrings("inputs/4/input.txt", "\n\n")
+	lines, err := readinput.ReadStrings(4, false, "\n\n")
 	if err != nil {
 		panic(err)
 	}

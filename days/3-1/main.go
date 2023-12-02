@@ -10,7 +10,7 @@ import (
 func main() {
 	var display [][]bool
 
-	lines, err := readinput.ReadStrings("inputs/3/input.txt", "\n")
+	lines, err := readinput.ReadStrings(3, false, "\n")
 	if err != nil {
 		panic(err)
 	}
