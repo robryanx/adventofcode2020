@@ -3,6 +3,7 @@ package test
 import (
 	"fmt"
 	"os/exec"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -44,10 +45,17 @@ var expectations = map[string]string{
 
 func TestDays(t *testing.T) {
 	for day, expect := range expectations {
-		cmd := exec.Command(fmt.Sprintf("bin/%s", day))
-		out, err := cmd.CombinedOutput()
+		t.Run(day, func(t *testing.T) {
+			t.Parallel()
+			runCmd := exec.Command("go", "run", ".")
+			runCmd.Dir = filepath.Join("days", day)
+			output, err := runCmd.CombinedOutput()
+			if err != nil {
+				fmt.Println(string(output))
+			}
 
-		assert.NoError(t, err)
-		assert.Equal(t, expect, strings.TrimRight(string(out), "\n"), fmt.Sprintf("Day %s", day))
+			assert.NoError(t, err)
+			assert.Equal(t, expect, strings.TrimRight(string(output), "\n"), fmt.Sprintf("Day %s", day))
+		})
 	}
 }

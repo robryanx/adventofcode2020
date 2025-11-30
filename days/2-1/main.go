@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/robryanx/adventofcode2020/modules/readinput"
+	"github.com/robryanx/adventofcode2020/util/readinput"
 )
 
 var r = regexp.MustCompile(`([0-9]+)\-([0-9]+)\s([a-z]+)\:\s(.*)`)

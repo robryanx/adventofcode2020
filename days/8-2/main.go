@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/robryanx/adventofcode2020/modules/readinput"
+	"github.com/robryanx/adventofcode2020/util/readinput"
 )
 
 type Instruction struct {

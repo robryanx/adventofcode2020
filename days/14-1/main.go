@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/robryanx/adventofcode2020/modules/readinput"
+	"github.com/robryanx/adventofcode2020/util/readinput"
 )
 
 func main() {
