@@ -12,37 +12,30 @@ func main() {
 		panic(err)
 	}
 
-	last_seen := make(map[int]int)
+	lastSeen := make(map[int]int, 3000000)
 
-	var current_number int
-	var prev_number int
-
+	var prev int
 	var count int
 
 	for i, number := range list {
-		last_seen[number] = i
+		lastSeen[number] = i
 		count++
 	}
-
-	prev_number = 0
-	current_number = 3
 
 	for {
-		if _, ok := last_seen[prev_number]; ok {
-			current_number = count - last_seen[prev_number]
-		} else {
-			current_number = 0
+		curr := 0
+		if _, ok := lastSeen[prev]; ok {
+			curr = count - lastSeen[prev]
 		}
-
-		last_seen[prev_number] = count
+		lastSeen[prev] = count
 		count++
 
-		prev_number = current_number
-
-		if count+1 == 30000000 {
+		if count == 30000000 {
 			break
 		}
+
+		prev = curr
 	}
 
-	fmt.Println(current_number)
+	fmt.Println(prev)
 }
