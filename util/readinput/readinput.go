@@ -3,6 +3,8 @@ package readinput
 import (
 	"fmt"
 	"os"
+	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 )
@@ -10,12 +12,19 @@ import (
 type Iterator = func(s string)
 
 func filename(day int, isSample bool) string {
-	folder := "inputs"
+	folder := filepath.Join("inputs")
 	if isSample {
-		folder = "samples"
+		folder = filepath.Join("samples")
 	}
 
-	return fmt.Sprintf("%s/%d.txt", folder, day)
+	_, fileName, _, ok := runtime.Caller(0)
+	if !ok {
+		return filepath.Join(folder, fmt.Sprintf("%d.txt", day))
+	}
+	prefixPath := filepath.Dir(fileName)
+	basePath := filepath.Join(prefixPath, "..", "..", folder)
+
+	return filepath.Join(basePath, fmt.Sprintf("%d.txt", day))
 }
 
 func ReadStrings(day int, isSample bool, delim string) ([]string, error) {
